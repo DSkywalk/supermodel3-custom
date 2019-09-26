@@ -197,12 +197,17 @@ static bool CreateGLScreen(const std::string &caption, unsigned *xOffsetPtr, uns
   SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, s_runtime_config["VSync"].ValueAsDefault<bool>(false) ? 1 : 0);
 
   // Set video mode
-  if (SDL_SetVideoMode(*xResPtr,*yResPtr,0,SDL_OPENGL|(fullScreen?SDL_FULLSCREEN|SDL_HWSURFACE:0)) == NULL)
+  if (SDL_SetVideoMode(*xResPtr,*yResPtr,0,SDL_OPENGL|(fullScreen?SDL_NOFRAME|SDL_HWSURFACE:0)) == NULL)
   {
     ErrorLog("Unable to create an OpenGL display: %s\n", SDL_GetError());
     return FAIL;
   }
     
+  //SDL_SetWindowResizable(fb.window, SDL_FALSE);
+  //SDL_SetWindowBordered(fb.window, SDL_FALSE);
+  //SDL_SetWindowPosition(fb.window, 0, 0);
+  //SDL_SetWindowSize(fb.window, sdl_get_display_dim(0).x, sdl_get_display_dim(0).y)
+
   // Create window caption
   SDL_WM_SetCaption(caption.c_str(),NULL);
     
@@ -237,7 +242,7 @@ static bool ResizeGLScreen(unsigned *xOffsetPtr, unsigned *yOffsetPtr, unsigned 
  */
 static void PrintGLInfo(bool createScreen, bool infoLog, bool printExtensions)
 {
-  unsigned xOffset, yOffset, xRes=496, yRes=384, totalXRes, totalYRes;  
+  unsigned xOffset, yOffset, xRes=312, yRes=240, totalXRes, totalYRes;
   if (createScreen)
   {
     if (OKAY != CreateGLScreen("Supermodel - Querying OpenGL Information...", &xOffset, &yOffset, &xRes, &yRes, &totalXRes, &totalYRes, false, false))
