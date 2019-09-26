@@ -206,7 +206,7 @@ OUTFILE = supermodel
 # Compiler Flags
 ###############################################################################
 
-ARCH = -march=native -mfpmath=sse
+ARCH = -march=core2 -mfpmath=sse
 BUILD_CFLAGS =
 OPT = -O3
 WARN = -Wall
